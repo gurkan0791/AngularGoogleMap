@@ -6,12 +6,15 @@
 package com.mycompany.config;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.mongodb.MongoURI;
 import com.mycompany.model.MarkerDAO;
 import com.mycompany.model.MarkerDAOImpl;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.authentication.UserCredentials;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.MongoTemplate;
@@ -26,7 +29,12 @@ public class MongoConfig {
     
     @Bean
     public MongoDbFactory mongoDbFactory() throws Exception {
-        return new SimpleMongoDbFactory(new MongoClient("localhost", 27017), "local");
+       // return new SimpleMongoDbFactory(new MongoClient("localhost", 27017), "local");
+       // UserCredentials userCredentials = new UserCredentials("gurkan", "gurkan91");
+        String textUri = "mongodb://gurkan:gurkan91@ds041484.mongolab.com:41484/markerdata";
+        MongoClientURI uri = new MongoClientURI(textUri);
+        //return new SimpleMongoDbFactory(new MongoClient(uri));
+        return new SimpleMongoDbFactory(uri);
     }
     
     @Bean
